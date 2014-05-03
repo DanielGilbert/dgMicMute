@@ -5,8 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dgMicMute", "dgMicMute\dgMi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D697F346-9E33-400E-A95D-315BEF7D6DD1}"
 	ProjectSection(SolutionItems) = preProject
-		LICENSE.txt = LICENSE.txt
-		README.MD = README.MD
+		LICENSE = LICENSE
+		README = README
 	EndProjectSection
 EndProject
 Global
