@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>dgmicmute.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Hardcodet.Wpf.TaskbarNotification">
       <HintPath>..\libs\TaskbarNotification\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
@@ -117,10 +120,15 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="dgmicmute.ico" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="res\microphone_muted.ico" />
     <Resource Include="res\microphone_unmuted.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="res\dgmicmute.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

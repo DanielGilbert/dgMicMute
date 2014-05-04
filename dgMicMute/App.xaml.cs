@@ -19,6 +19,14 @@ namespace dgMicMute
         {
             base.OnStartup(e);
 
+            if (Environment.Version.Major < 6 || Environment.Version.Major == 6 && Environment.Version.Minor < 1)
+            {
+                MessageBox.Show(
+                    "This Tool can only run under Windows 7 or newer.\n\r Sorry, blame Microsoft for not implementing the Enumeration API.",
+                    "Wrong Operating System", MessageBoxButton.OK, MessageBoxImage.Error);
+                Application.Current.Shutdown();
+            }
+
             //create the notifyicon (it's a resource declared in NotifyIconResources.xaml
             _notifyIcon = (TaskbarIcon)Application.Current.FindResource("NotifyIcon");
         }
