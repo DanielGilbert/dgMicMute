@@ -20,4 +20,9 @@ Binaries
 
 If you came here by accident, and don't want the source, but rather precompiled binaries, head over to [the Download Page](http://tools.danielgilbert.de/windows/dgmicmute)
 
+Thanks
+------
+
+Icon made by Stephen Hutchings from Flaticon.com
+
 _this document hasn't been finished yet..._

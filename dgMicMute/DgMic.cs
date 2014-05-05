@@ -52,7 +52,10 @@ namespace dgMicMute
 
         public bool AreAllMicsMuted()
         {
-            return !((from p in _devices where p.AudioEndpointVolume.Mute == false select p).Any());
+            return !((from p 
+                      in _devices 
+                      where p.AudioEndpointVolume.Mute == false 
+                      select p).Any());
         }
     }
 }
