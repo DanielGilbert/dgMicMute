@@ -7,14 +7,22 @@ using dgMicMute.Interfaces;
 
 namespace dgMicMute.Implementations
 {
-    public delegate void AudioEndpointVolumeNotificationDelegate(AudioVolumeNotificationData data);
+    public delegate void AudioEndpointVolumeNotificationEvent(AudioVolumeNotificationData data);
 
+    /// <summary>
+    /// A clean implementation for the IAudioEndpointVolume-Interface as a helper for the Interface itself.
+    /// 
+    /// Up to now, only the Muting and the VolumeCallback ist implemented.
+    /// </summary>
     public class AudioEndpointVolume
     {
-        private IAudioEndpointVolume _audioEndpointVolume;
-        private AudioEndpointVolumeCallback _CallBack;
-        public event AudioEndpointVolumeNotificationDelegate OnVolumeNotification = delegate {};
+        private readonly IAudioEndpointVolume _audioEndpointVolume;
+        private AudioEndpointVolumeCallback _callBack;
+        public event AudioEndpointVolumeNotificationEvent OnVolumeNotification = delegate {};
 
+        /// <summary>
+        /// Mutes the Device, or gets it Muted State
+        /// </summary>
         public bool Mute
         {
             get
@@ -29,6 +37,10 @@ namespace dgMicMute.Implementations
             }
         }
 
+        /// <summary>
+        /// Gets called by the AudioEndpointVolumeCallback
+        /// </summary>
+        /// <param name="notificationData"></param>
         internal void FireNotification(AudioVolumeNotificationData notificationData)
         {
             OnVolumeNotification(notificationData);
@@ -38,27 +50,24 @@ namespace dgMicMute.Implementations
         {
             _audioEndpointVolume = audioEndpointVolume;
 
-            _CallBack = new AudioEndpointVolumeCallback(this);
-            Marshal.ThrowExceptionForHR(_audioEndpointVolume.RegisterControlChangeNotify(_CallBack));
+            _callBack = new AudioEndpointVolumeCallback(this);
+            Marshal.ThrowExceptionForHR(_audioEndpointVolume.RegisterControlChangeNotify(_callBack));
         }
-        #region IDisposable Members
+
+        #region IDisposable
 
         public void Dispose()
         {
-            if (_CallBack != null)
-            {
-                Marshal.ThrowExceptionForHR(_audioEndpointVolume.UnregisterControlChangeNotify(_CallBack));
-                _CallBack = null;
-            }
+            if (_callBack == null) return;
+
+            Marshal.ThrowExceptionForHR(_audioEndpointVolume.UnregisterControlChangeNotify(_callBack));
+            _callBack = null;
         }
 
         ~AudioEndpointVolume()
         {
             Dispose();
         }
-
         #endregion
-       
-
     }
 }

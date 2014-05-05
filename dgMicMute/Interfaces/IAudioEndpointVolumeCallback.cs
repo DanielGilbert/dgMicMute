@@ -19,11 +19,11 @@ namespace dgMicMute.Interfaces
         /// <summary>
         /// The OnNotify method notifies the client that the volume level or muting state of the audio endpoint device has changed.
         /// </summary>
-        /// <param name="notificationData"></param>
+        /// <param name="notifyData"></param>
         /// <remarks>Source: http://msdn.microsoft.com/en-us/library/windows/desktop/dd370895(v=vs.85).aspx </remarks>
         /// <returns>HRESULT</returns>
         [PreserveSig]
         int OnNotify(
-            [In] IntPtr notificationData);
+            [In] IntPtr notifyData);
     }
 }

@@ -10,13 +10,19 @@ using dgMicMute.Interfaces;
 
 namespace dgMicMute.Implementations
 {
+    /// <summary>
+    /// Helper Implementation of the <see cref="IMMDevice"/>-Interface.
+    /// </summary>
     public class MMDevice
     {
-        private IMMDevice _device;
+        private readonly IMMDevice _device;
         private AudioEndpointVolume _audioEndpointVolume;
 
-        private static Guid IID_IAudioEndpointVolume = typeof (IAudioEndpointVolume).GUID;
+        private static readonly Guid IID_IAudioEndpointVolume = typeof (IAudioEndpointVolume).GUID;
 
+        /// <summary>
+        /// Implementation of the <see cref="IAudioEndpointVolume"/>-Interface for this device.
+        /// </summary>
         public AudioEndpointVolume AudioEndpointVolume
         {
             get
@@ -28,7 +34,10 @@ namespace dgMicMute.Implementations
             }
         }
 
-        public string ID
+        /// <summary>
+        /// The Id of this Device.
+        /// </summary>
+        public string Id
         {
             get
             {
@@ -38,6 +47,9 @@ namespace dgMicMute.Implementations
             }
         }
 
+        /// <summary>
+        /// Describes the DataFlow for this device.
+        /// </summary>
         public EDataFlow DataFlow
         {
             get
@@ -49,6 +61,9 @@ namespace dgMicMute.Implementations
             }
         }
 
+        /// <summary>
+        /// Describes the State of this Device
+        /// </summary>
         public EDeviceState DeviceState
         {
             get

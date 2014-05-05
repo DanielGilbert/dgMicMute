@@ -7,6 +7,14 @@ using dgMicMute.Enumerations;
 
 namespace dgMicMute.Interfaces
 {
+    /// <summary>
+    /// The IMMDeviceEnumerator interface provides methods for enumerating multimedia device resources.
+    /// In the current implementation of the MMDevice API,
+    /// the only device resources that this interface can enumerate are audio endpoint devices.
+    /// </summary>
+    /// <remarks>
+    /// Source: http://msdn.microsoft.com/en-us/library/windows/desktop/dd371399(v=vs.85).aspx
+    /// </remarks>
     [Guid("A95664D2-9614-4F35-A746-DE8DB63617E6"),
     InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IMMDeviceEnumerator

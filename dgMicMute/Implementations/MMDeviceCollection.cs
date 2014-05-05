@@ -7,11 +7,18 @@ using dgMicMute.Interfaces;
 
 namespace dgMicMute.Implementations
 {
+    /// <summary>
+    /// Helper Class for the <see cref="IMMDeviceCollection"/>-Interface.
+    /// Implements the IEnumerable-Interface, so it can be used in LINQ (Yeah!).
+    /// </summary>
     public class MMDeviceCollection : IEnumerable<MMDevice>
     {
         private readonly IMMDeviceCollection _deviceCollection;
         private readonly List<MMDevice> _devicesList; 
 
+        /// <summary>
+        /// Number of devices in this Collection.
+        /// </summary>
         public int Count
         {
             get
@@ -22,10 +29,17 @@ namespace dgMicMute.Implementations
             }
         }
 
+        /// <summary>
+        /// Grants access to a certain device, based on the supplied index.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public MMDevice this[int index]
         {
             get
             {
+                if (index - 1 > Count)
+                    throw new IndexOutOfRangeException("");
                 IMMDevice result;
                 _deviceCollection.Item((uint) index, out result);
                 return new MMDevice(result);

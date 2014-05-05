@@ -5,59 +5,62 @@ using System.Text;
 
 namespace dgMicMute.Implementations
 {
+    /// <summary>
+    /// The AudioVolumeNotificationData structure describes a change 
+    /// in the volume level or muting state of an audio endpoint device.
+    /// </summary>
+    /// <remarks>
+    /// Source: http://msdn.microsoft.com/en-us/library/windows/desktop/dd370799(v=vs.85).aspx
+    /// </remarks>
     public class AudioVolumeNotificationData
     {
-        private Guid _EventContext;
-        private bool _Muted;
-        private float _MasterVolume;
-        private int _Channels;
-        private float[] _ChannelVolume;
+        /// <summary>
+        /// Context value for the IAudioEndpointVolumeCallback::OnNotify method.
+        /// This member is the value of the event-context GUID that was provided as an input parameter 
+        /// to the IAudioEndpointVolume method call that changed the endpoint volume level or muting state.
+        /// </summary>
+        public Guid EventContext { get; private set; }
 
-        public Guid EventContext
-        {
-            get
-            {
-                return _EventContext;
-            }
-        }
+        /// <summary>
+        /// Specifies whether the audio stream is currently muted. If Muted is TRUE, the stream is muted. If FALSE, the stream is not muted.
+        /// </summary>
+        public bool Muted { get; private set; }
 
-        public bool Muted
-        {
-            get
-            {
-                return _Muted;
-            }
-        }
+        /// <summary>
+        /// Specifies the current master volume level of the audio stream. 
+        /// The volume level is normalized to the range from 0.0 to 1.0, 
+        /// where 0.0 is the minimum volume level and 1.0 is the maximum level.
+        /// Within this range, the relationship of the normalized volume level to the attenuation of signal amplitude 
+        /// is described by a nonlinear, audio-tapered curve.
+        /// </summary>
+        public float MasterVolume { get; private set; }
 
-        public float MasterVolume
-        {
-            get
-            {
-                return _MasterVolume;
-            }
-        }
-        public int Channels
-        {
-            get
-            {
-                return _Channels;
-            }
-        }
+        /// <summary>
+        /// Specifies the number of channels in the audio stream, 
+        /// which is also the number of elements in the <see cref="ChannelVolume"/> array.
+        /// If the audio stream contains n channels, the channels are numbered from 0 to n-1.
+        /// The volume level for a particular channel is contained in the array element whose index matches the channel number.
+        /// </summary>
+        public int Channels { get; private set; }
 
-        public float[] ChannelVolume
-        {
-            get
-            {
-                return _ChannelVolume;
-            }
-        }
+        /// <summary>
+        /// The first element in an array of channel volumes.
+        /// This element contains the current volume level of channel 0 in the audio stream.
+        /// If the audio stream contains more than one channel, the volume levels for the additional channels
+        /// immediately follow the <see cref="AudioVolumeNotificationData"/> structure. 
+        /// The volume level for each channel is normalized to the range from 0.0 to 1.0,
+        /// where 0.0 is the minimum volume level and 1.0 is the maximum level. 
+        /// Within this range, the relationship of the normalized volume level to the attenuation of signal amplitude is described by a nonlinear, audio-tapered curve.
+        /// </summary>
+        public float[] ChannelVolume { get; private set; }
+
         public AudioVolumeNotificationData(Guid eventContext, bool muted, float masterVolume, float[] channelVolume)
         {
-            _EventContext = eventContext;
-            _Muted = muted;
-            _MasterVolume = masterVolume;
-            _Channels = channelVolume.Length;
-            _ChannelVolume = channelVolume;
+            EventContext = eventContext;
+            Muted = muted;
+            MasterVolume = masterVolume;
+            Channels = channelVolume.Length;
+            ChannelVolume = channelVolume;
         }
     }
 }

@@ -5,12 +5,15 @@ using System.Text;
 
 namespace dgMicMute.Structures
 {
+    /// <summary>
+    /// 
+    /// </summary>
     internal struct AudioVolumeNotificationDataStruct
     {
-        public Guid guidEventContext;
-        public bool bMuted;
-        public float fMasterVolume;
-        public uint nChannels;
+        public Guid GuidEventContext;
+        public bool BMuted;
+        public float FMasterVolume;
+        public uint NChannels;
         public float ChannelVolume;
     }
 }

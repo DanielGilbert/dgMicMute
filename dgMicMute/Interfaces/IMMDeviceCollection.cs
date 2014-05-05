@@ -6,6 +6,14 @@ using System.Text;
 
 namespace dgMicMute.Interfaces
 {
+    /// <summary>
+    /// The IMMDeviceCollection interface represents a collection of multimedia device resources.
+    /// In the current implementation, the only device resources that the MMDevice API can create collections 
+    /// of are audio endpoint devices.
+    /// </summary>
+    /// <remarks>
+    /// Source: http://msdn.microsoft.com/en-us/library/windows/desktop/dd371396(v=vs.85).aspx
+    /// </remarks>
     [Guid("0BD7A1BE-7A1A-44DB-8397-CC5392387B5E"),
      InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IMMDeviceCollection

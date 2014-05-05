@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
+﻿using System.Linq;
 using dgMicMute.Enumerations;
 using dgMicMute.Implementations;
-using dgMicMute.Interfaces;
 
 namespace dgMicMute
 {
@@ -16,17 +11,14 @@ namespace dgMicMute
     /// </summary>
     public class DgMic
     {
-        private MMDeviceCollection _devices;
-        private int _count;
+        private readonly MMDeviceCollection _devices;
+        private readonly int _count;
         public event VolumeNotificationEvent OnVolumeNotification = delegate { };
 
-        /// <summary>
-        /// 
-        /// </summary>
         public DgMic()
         {
             MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
-            _devices = enumerator.EnumerateAudioEndpoints(EDataFlow.eCapture,
+            _devices = enumerator.EnumerateAudioEndpoints(EDataFlow.ECapture,
                 EDeviceState.DeviceStateActive);
 
             _count = _devices.Count;
@@ -52,7 +44,8 @@ namespace dgMicMute
                 }
                 catch
                 {
-                    
+                    //We don't care about it beeing set or not.
+                    //Sometimes, it doesn't work.
                 }
             }
         }

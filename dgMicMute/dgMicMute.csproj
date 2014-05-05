@@ -63,7 +63,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Constants\STGM_XXX.cs" />
+    <Compile Include="Constants\StorageModes.cs" />
     <Compile Include="DgMic.cs" />
     <Compile Include="DgMicStates.cs" />
     <Compile Include="Implementations\AudioVolumeNotificationData.cs" />
@@ -87,7 +87,6 @@
     <Compile Include="Interfaces\IMMEndpoint.cs" />
     <Compile Include="Interfaces\IMMNotificationClient.cs" />
     <Compile Include="Interfaces\IPropertyStore.cs" />
-    <Compile Include="Interfaces\ISimpleAudio.cs" />
     <Compile Include="Internals\mmDeviceEnumerator.cs" />
     <Page Include="NotifyIconResource.xaml">
       <SubType>Designer</SubType>

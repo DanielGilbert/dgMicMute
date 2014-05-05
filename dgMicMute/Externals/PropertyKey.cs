@@ -19,11 +19,11 @@ namespace dgMicMute.Externals
         /// <summary>
         /// A unique GUID for the property.
         /// </summary>
-        public Guid fmtid;
+        public Guid FmtGuid;
 
         /// <summary>
         /// A property identifier (PID).
         /// </summary>
-        public int pid;   
+        public int PId;   
     }
 }

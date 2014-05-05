@@ -9,6 +9,9 @@ using dgMicMute.Internals;
 
 namespace dgMicMute.Implementations
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class MMDeviceEnumerator
     {
         private IMMDeviceEnumerator _deviceEnumerator;

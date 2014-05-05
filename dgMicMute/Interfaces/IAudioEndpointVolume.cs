@@ -6,6 +6,13 @@ using System.Text;
 
 namespace dgMicMute.Interfaces
 {
+    /// <summary>
+    /// The IAudioEndpointVolume interface represents the volume controls
+    /// on the audio stream to or from an audio endpoint device. 
+    /// </summary>
+    /// <remarks>
+    /// Source: http://msdn.microsoft.com/en-us/library/windows/desktop/dd370892(v=vs.85).aspx
+    /// </remarks>
     [Guid("5CDF2C82-841E-4546-9722-0CF74078229A"),
      InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IAudioEndpointVolume

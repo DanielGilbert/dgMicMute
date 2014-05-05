@@ -7,6 +7,13 @@ using dgMicMute.Enumerations;
 
 namespace dgMicMute.Interfaces
 {
+    /// <summary>
+    /// The IMMDevice interface encapsulates the generic features of a multimedia device resource.
+    /// In the current implementation of the MMDevice API, the only type of device resource that an IMMDevice interface can represent is an audio endpoint device.
+    /// </summary>
+    /// <remarks>
+    /// Source: http://msdn.microsoft.com/en-us/library/windows/desktop/dd371395(v=vs.85).aspx
+    /// </remarks>
     [Guid("D666063F-1587-4E43-81F1-B948E807363F"),
     InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IMMDevice

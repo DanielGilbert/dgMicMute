@@ -8,6 +8,14 @@ using dgMicMute.Externals;
 
 namespace dgMicMute.Interfaces
 {
+    /// <summary>
+    /// The IMMNotificationClient interface provides notifications when an audio endpoint device is added or removed,
+    /// when the state or properties of an endpoint device change,
+    /// or when there is a change in the default role assigned to an endpoint device.
+    /// </summary>
+    /// <remarks>
+    /// Source: http://msdn.microsoft.com/en-us/library/windows/desktop/dd371417(v=vs.85).aspx
+    /// </remarks>
     public interface IMMNotificationClient
     {
         /// <summary>
