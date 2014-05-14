@@ -11,9 +11,9 @@ namespace dgMicMute.Structures
     internal struct AudioVolumeNotificationDataStruct
     {
         public Guid GuidEventContext;
-        public bool BMuted;
-        public float FMasterVolume;
-        public uint NChannels;
+        public bool Muted;
+        public float MasterVolume;
+        public uint Channels;
         public float ChannelVolume;
     }
 }

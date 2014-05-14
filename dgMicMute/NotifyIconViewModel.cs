@@ -77,10 +77,12 @@ namespace dgMicMute
 
         private void _mic_OnVolumeNotification(Implementations.AudioVolumeNotificationData data)
         {
-            //Everything hat happens in the callback,
-            //must be done in a non-blocking way.
-            //Therefore, we need to invoke a new thread via the dispatcher
             if (IsForced)
+                //Everything hat happens in the callback,
+                //must be done in a non-blocking way.
+                //Therefore, we need to invoke a new thread via the dispatcher,
+                //because we cannot simply get information from the interface while
+                //we are handling the callback.
                 Application.Current.Dispatcher.BeginInvoke((Action) (() =>
                 {
                     IsMuted = IsMuted;
