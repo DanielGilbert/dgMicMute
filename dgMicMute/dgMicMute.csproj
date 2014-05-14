@@ -67,6 +67,9 @@
     <Compile Include="DgMic.cs" />
     <Compile Include="DgMicStates.cs" />
     <Compile Include="Implementations\AudioVolumeNotificationData.cs" />
+    <Compile Include="SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Structures\AudioVolumeNotificationDataStruct.cs" />
     <Compile Include="Enumerations\ClsCtx.cs" />
     <Compile Include="Enumerations\EDataFlow.cs" />
@@ -91,6 +94,10 @@
     <Page Include="NotifyIconResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SettingsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
