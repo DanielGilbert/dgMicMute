@@ -67,9 +67,11 @@
     <Compile Include="DgMic.cs" />
     <Compile Include="DgMicStates.cs" />
     <Compile Include="Implementations\AudioVolumeNotificationData.cs" />
+    <Compile Include="MvvmHelper\ViewModelBase.cs" />
     <Compile Include="SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SettingsWindowViewModel.cs" />
     <Compile Include="Structures\AudioVolumeNotificationDataStruct.cs" />
     <Compile Include="Enumerations\ClsCtx.cs" />
     <Compile Include="Enumerations\EDataFlow.cs" />

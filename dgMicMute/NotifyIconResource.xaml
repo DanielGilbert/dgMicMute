@@ -12,6 +12,8 @@
         <MenuItem Header="Mute" IsCheckable="True" IsChecked="{Binding IsMuted}" />
         <MenuItem Header="Keep State" IsCheckable="True" IsChecked="{Binding IsForced}" />
         <Separator />
+        <MenuItem Header="Settings..." IsEnabled="True" Command="{Binding OpenSettingsWindowCommand}"/>
+        <Separator />
         <MenuItem Header="Fork on Github" IsEnabled="True" Command="{Binding ForkOnGitHubCommand}"/>
         <Separator />
         <MenuItem Header="Exit" Command="{Binding ExitApplicationCommand}" />

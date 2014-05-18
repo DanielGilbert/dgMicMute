@@ -60,6 +60,7 @@ namespace dgMicMute
 
         public ICommand ExitApplicationCommand { get; set; }
         public ICommand ForkOnGitHubCommand { get; set; }
+        public ICommand OpenSettingsWindowCommand { get; set; }
 
         public NotifyIconViewModel()
         {
@@ -68,6 +69,13 @@ namespace dgMicMute
             _mic.OnVolumeNotification += _mic_OnVolumeNotification;
             ExitApplicationCommand = new RelayCommand(ExitApplication);
             ForkOnGitHubCommand = new RelayCommand(ForkOnGithub);
+            OpenSettingsWindowCommand = new RelayCommand(OpenSettingsWindow);
+        }
+
+        private void OpenSettingsWindow(object obj)
+        {
+            SettingsWindow settingsWindow = new SettingsWindow();
+            settingsWindow.Show();
         }
 
         private void ForkOnGithub(object obj)

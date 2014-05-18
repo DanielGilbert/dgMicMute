@@ -42,16 +42,16 @@ namespace dgMicMute.Implementations
             //Determine offset in memory of the first float
             IntPtr FirstFloatPtr = (IntPtr)((long)notifyData + (long)Offset);
 
-            float[] voldata = new float[data.NChannels];
+            float[] voldata = new float[data.Channels];
 
             //Read all floats from memory.
-            for (int i = 0; i < data.NChannels; i++)
+            for (int i = 0; i < data.Channels; i++)
             {
                 voldata[i] = (float)Marshal.PtrToStructure(FirstFloatPtr, typeof(float));
             }
 
             //Create combined structure and Fire Event in parent class.
-            AudioVolumeNotificationData notificationData = new AudioVolumeNotificationData(data.GuidEventContext, data.BMuted, data.FMasterVolume, voldata);
+            AudioVolumeNotificationData notificationData = new AudioVolumeNotificationData(data.GuidEventContext, data.Muted, data.MasterVolume, voldata);
             _parent.FireNotification(notificationData);
             return 0; //S_OK
         }
