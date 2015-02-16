@@ -23,7 +23,7 @@
     <!-- the application's NotifyIcon - started from App.xaml.cs. Declares its own view model. -->
     <tb:TaskbarIcon x:Key="NotifyIcon"
                     IconSource="{Binding IconPath, Mode=TwoWay}"
-                    ToolTipText="dgMicMute, © Daniel Gilbert (danielgilbert.de), 2014"
+                    ToolTipText="dgMicMute, © Daniel Gilbert (danielgilbert.de), 2014-2015"
                     ContextMenu="{StaticResource SysTrayMenu}">
 
         <!-- self-assign a data context (could also be done programmatically) -->
