@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "dgMicMute"
-#define MyAppVersion "0.9"
+#define MyAppVersion "1.1"
 #define MyAppPublisher "Daniel Gilbert"
 #define MyAppURL "http://tools.danielgilbert.de/windows/dgmicmute"
 #define MyAppExeName "dgMicMute.exe"
@@ -22,8 +22,8 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
-LicenseFile=D:\Entwicklung\C#\dgMicMute\dgMicMute\bin\Release\License.txt
-OutputDir=D:\Entwicklung\C#\dgMicMute\Setup
+LicenseFile=L:\Entwicklung\Windows\dgMicMute\dgMicMute\bin\Release\License.txt
+OutputDir=L:\Entwicklung\Windows\dgMicMute\Setup
 OutputBaseFilename=dgMicMute_Setup
 Compression=lzma
 SolidCompression=yes
@@ -34,17 +34,15 @@ Name: "german"; MessagesFile: "compiler:Languages\German.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
-Name: "startup"; Description: "{cm:AutoStartFolder,{#StringChange(MyAppName, '&', '&&')}}"; GroupDescription: "{cm:AdditionalIcons}"
 
 [Files]
-Source: "D:\Entwicklung\C#\dgMicMute\dgMicMute\bin\Release\dgMicMute.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Entwicklung\C#\dgMicMute\dgMicMute\bin\Release\Hardcodet.Wpf.TaskbarNotification.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "L:\Entwicklung\Windows\dgMicMute\dgMicMute\bin\Release\dgMicMute.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "L:\Entwicklung\Windows\dgMicMute\dgMicMute\bin\Release\Hardcodet.Wpf.TaskbarNotification.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
-Name: "{userstartup}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: startup
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
