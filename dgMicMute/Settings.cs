@@ -18,7 +18,12 @@ namespace dgMicMute
     [Serializable]
     public static class Settings
     {
-        private static bool _startWithWindows;
+        /// <summary>
+        /// Ugly hack.
+        /// </summary>
+        public static bool _startWithWindows;
+        public static bool _isMuted;
+        public static bool _isForced;
 
         public static event SettingsChanged OnSettingsChanged = delegate { };
 
@@ -33,6 +38,30 @@ namespace dgMicMute
                 _startWithWindows = value;
                 ToggleAutostart();
                 OnSettingsChanged("StartWithWindows");
+            }
+        }
+
+        public static bool IsMuted
+        {
+            get
+            {
+                return _isMuted;
+            }
+            set
+            {
+                _isMuted = value;
+            }
+        }
+
+        public static bool IsForced
+        {
+            get
+            {
+                return _isForced;
+            }
+            set
+            {
+                _isForced = value;
             }
         }
 

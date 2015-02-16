@@ -14,13 +14,14 @@ namespace dgMicMute
         private readonly MMDeviceCollection _devices;
         private readonly int _count;
         public event VolumeNotificationEvent OnVolumeNotification = delegate { };
+        private DgMicStates _oldState;
 
         public DgMic()
         {
             MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
             _devices = enumerator.EnumerateAudioEndpoints(EDataFlow.ECapture,
                 EDeviceState.DeviceStateActive);
-
+            _oldState = DgMicStates.Unmuted;
             _count = _devices.Count;
 
             for (int i = 0; i < _count; i++)
@@ -36,6 +37,8 @@ namespace dgMicMute
 
         public void SetMicStateTo(DgMicStates state)
         {
+            if (_oldState == state) return;
+
             for (int i = 0; i < _count; i++)
             {
                 try

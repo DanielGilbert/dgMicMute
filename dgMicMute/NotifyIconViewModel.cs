@@ -13,19 +13,17 @@ namespace dgMicMute
     public class NotifyIconViewModel : INotifyPropertyChanged
     {
         private string _iconPath;
-        private bool _isMuted;
-        private bool _isForced;
         private DgMic _mic;
 
         public bool IsMuted
         {
             get
             {
-                return _isMuted;
+                return Settings.IsMuted;
             }
             set
             {
-                _isMuted = value;
+                Settings.IsMuted = value;
                 IconPath = IsMuted ? @"res\microphone_muted.ico" : @"res\microphone_unmuted.ico";
                 _mic.SetMicStateTo(IsMuted ? DgMicStates.Muted : DgMicStates.Unmuted);
                 OnPropertyChanged("IsMuted");
@@ -36,11 +34,11 @@ namespace dgMicMute
         {
             get
             {
-                return _isForced;
+                return Settings.IsForced;
             }
             set
             {
-                _isForced = value;
+                Settings.IsForced = value;
                 OnPropertyChanged("IsForced");
             }
         }
@@ -86,7 +84,7 @@ namespace dgMicMute
         private void _mic_OnVolumeNotification(Implementations.AudioVolumeNotificationData data)
         {
             if (IsForced)
-                //Everything hat happens in the callback,
+                //Everything that happens in the callback,
                 //must be done in a non-blocking way.
                 //Therefore, we need to invoke a new thread via the dispatcher,
                 //because we cannot simply get information from the interface while
