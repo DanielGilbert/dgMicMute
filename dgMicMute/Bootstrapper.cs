@@ -9,23 +9,17 @@ namespace dgMicMute
 {
     public class Bootstrapper
     {
-        Settings settings = new Settings();
         KeyboardHook hook;
 
         public void Init()
         {
             //Loads the settings
-            settings = Settings.Load();
-
-            if (!settings.UseHotkey) return;
-
-            hook = new KeyboardHook();
-            hook.RegisterHotKey(settings.FirstModifier | settings.SecondModifier, settings.SelectedKey);
+            SerializeStatic.Load(typeof(Settings));
         }
 
         public void Shutdown()
         {
-            
+            SerializeStatic.Save(typeof(Settings));
         }
     }
 }

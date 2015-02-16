@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Mime;
 using System.Reflection;
+using System.Runtime.Serialization.Formatters.Soap;
 using System.Text;
 using System.Windows;
 using System.Windows.Forms;
@@ -15,18 +16,13 @@ namespace dgMicMute
     public delegate void SettingsChanged(string propertyName);
 
     [Serializable]
-    public class Settings
+    public static class Settings
     {
-        private bool _startWithWindows;
-        private bool _useHotkey;
+        private static bool _startWithWindows;
 
-        private ModifierKeys _firstModifier;
-        private ModifierKeys _secondModifier;
-        private Keys _selectedKey;
+        public static event SettingsChanged OnSettingsChanged = delegate { };
 
-        public event SettingsChanged OnSettingsChanged = delegate { };
-
-        public bool StartWithWindows
+        public static bool StartWithWindows
         {
             get
             {
@@ -40,119 +36,76 @@ namespace dgMicMute
             }
         }
 
-        public bool UseHotkey
-        {
-            get
-            {
-                return _useHotkey;
-            }
-            set
-            {
-                _useHotkey = value;
-                ToggleHotkey();
-                OnSettingsChanged("UseHotkey");
-            }
-        }
-
-        private void ToggleHotkey()
+        private static void ToggleAutostart()
         {
 
         }
+    }
 
-        public ModifierKeys FirstModifier
+    public class SerializeStatic
+    {
+        public static bool Save(Type static_class, string path = "")
         {
-            get
-            {
-                return _firstModifier;
-            }
-            set
-            {
-                _firstModifier = value;
-                OnSettingsChanged("FirstModifier");
-            }
-        }
-
-        public ModifierKeys SecondModifier
-        {
-            get
-            {
-                return _secondModifier;
-            }
-            set
-            {
-                _secondModifier = value;
-                OnSettingsChanged("SecondModifier");
-            }
-        }
-
-        public Keys SelectedKey
-        {
-            get
-            {
-                return _selectedKey;
-            }
-            set
-            {
-                _selectedKey = value;
-                OnSettingsChanged("SelectedKey");
-            }
-        }
-
-        private void ToggleAutostart()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Loads the current settings
-        /// </summary>
-        /// <param name="path"></param>
-        public static Settings Load(string path = "")
-        {
-            Settings settingsClass = new Settings();
-
-            if (String.IsNullOrWhiteSpace(path))
-                path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"dgmicmute\",
-                    "settings.xml");
-
-            if (!File.Exists(path)) return settingsClass;
-
             try
             {
-                var serializer = new XmlSerializer(typeof(Settings));
-                using (var reader = XmlReader.Create(path))
+                if (String.IsNullOrWhiteSpace(path))
+                    path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"dgMicMute\",
+                        "settings.xml");
+
+                Directory.CreateDirectory(Path.GetDirectoryName(path));
+
+                FieldInfo[] fields = static_class.GetFields(BindingFlags.Static | BindingFlags.Public);
+                object[,] a = new object[fields.Length, 2];
+                int i = 0;
+                foreach (FieldInfo field in fields)
                 {
-                    settingsClass = (Settings)serializer.Deserialize(reader);
-                }
+                    a[i, 0] = field.Name;
+                    a[i, 1] = field.GetValue(null);
+                    i++;
+                };
+                Stream f = File.Open(path, FileMode.Create);
+                SoapFormatter formatter = new SoapFormatter();
+                formatter.Serialize(f, a);
+                f.Close();
+                return true;
             }
             catch
             {
-                return settingsClass;
+                return false;
             }
-
-            return settingsClass;
         }
 
-        /// <summary>
-        /// Saves the current settings.
-        /// </summary>
-        /// <param name="path"></param>
-        public void Save(string path = "")
+        public static bool Load(Type static_class, string path = "")
         {
-            if (String.IsNullOrWhiteSpace(path))
-                path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"dgmicmute\",
-                    "settings.xml");
-
             try
             {
-                var serializer = new XmlSerializer(this.GetType());
-                using (var writer = XmlWriter.Create(path))
+                if (String.IsNullOrWhiteSpace(path))
+                    path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"dgMicMute\",
+                        "settings.xml");
+
+                if (!File.Exists(path)) return false;
+
+                FieldInfo[] fields = static_class.GetFields(BindingFlags.Static | BindingFlags.Public);
+                object[,] a;
+                Stream f = File.Open(path, FileMode.Open);
+                SoapFormatter formatter = new SoapFormatter();
+                a = formatter.Deserialize(f) as object[,];
+                f.Close();
+                if (a.GetLength(0) != fields.Length) return false;
+                int i = 0;
+                foreach (FieldInfo field in fields)
                 {
-                    serializer.Serialize(writer, this);
-                }
+                    if (field.Name == (a[i, 0] as string))
+                    {
+                        field.SetValue(null, a[i, 1]);
+                    }
+                    i++;
+                };
+                return true;
             }
             catch
             {
+                return false;
             }
         }
     }
