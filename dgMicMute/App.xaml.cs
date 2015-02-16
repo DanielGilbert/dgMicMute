@@ -14,6 +14,7 @@ namespace dgMicMute
     public partial class App : Application
     {
         private TaskbarIcon _notifyIcon;
+        private Bootstrapper _bootstrapper ;
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -29,11 +30,15 @@ namespace dgMicMute
 
             //create the notifyicon (it's a resource declared in NotifyIconResources.xaml
             _notifyIcon = (TaskbarIcon)Application.Current.FindResource("NotifyIcon");
+
+            _bootstrapper = new Bootstrapper();
+            _bootstrapper.Init();
         }
 
         protected override void OnExit(ExitEventArgs e)
         {
             _notifyIcon.Dispose(); //the icon would clean up automatically, but this is cleaner
+            _bootstrapper.Shutdown();
             base.OnExit(e);
         }
     }

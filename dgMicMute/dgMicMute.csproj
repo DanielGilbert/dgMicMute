@@ -42,6 +42,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -63,11 +64,16 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Bootstrapper.cs" />
     <Compile Include="Constants\StorageModes.cs" />
     <Compile Include="DgMic.cs" />
     <Compile Include="DgMicStates.cs" />
+    <Compile Include="Enumerations\KeysEnum.cs" />
+    <Compile Include="Enumerations\ModifierEnum.cs" />
     <Compile Include="Implementations\AudioVolumeNotificationData.cs" />
+    <Compile Include="KeyboardHook.cs" />
     <Compile Include="MvvmHelper\ViewModelBase.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>

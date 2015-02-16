@@ -15,6 +15,9 @@ namespace dgMicMute
         private string _secondModifier;
         private string _selectedKey;
 
+        private bool _usesHotkeys;
+        private bool _startsWithWindows;
+
         public List<string> ModifiersList
         {
             get
@@ -77,6 +80,32 @@ namespace dgMicMute
             {
                 _selectedKey = value;
                 OnPropertyChanged("SelectedKey");
+            }
+        }
+
+        public bool StartsWithWindows
+        {
+            get
+            {
+                return _startsWithWindows;
+            }
+            set
+            {
+                _startsWithWindows = value;
+                OnPropertyChanged("StartsWithWindows");
+            }
+        }
+
+        public bool UsesHotkeys
+        {
+            get
+            {
+                return _usesHotkeys;
+            }
+            set
+            {
+                _usesHotkeys = value;
+                OnPropertyChanged("UsesHotkeys");
             }
         }
 
