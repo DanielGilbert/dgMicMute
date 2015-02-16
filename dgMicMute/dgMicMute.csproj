@@ -74,6 +74,9 @@
     <Compile Include="Implementations\AudioVolumeNotificationData.cs" />
     <Compile Include="KeyboardHook.cs" />
     <Compile Include="MvvmHelper\ViewModelBase.cs" />
+    <Compile Include="Patterns\Mediator.cs" />
+    <Compile Include="Patterns\MediatorMessages.cs" />
+    <Compile Include="Patterns\MultiDictionary.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
