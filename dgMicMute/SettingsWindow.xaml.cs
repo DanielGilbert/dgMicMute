@@ -1,4 +1,5 @@
-﻿using System;
+﻿using dgMicMute.Patterns;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,18 @@ namespace dgMicMute
         public SettingsWindow()
         {
             InitializeComponent();
+
+            Mediator.Instance.Register(CloseWindow, MediatorMessages.CloseSettings);
+        }
+
+        private void CloseWindow(object obj)
+        {
+            this.Close();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            SerializeStatic.Save(typeof(Settings));
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -65,9 +66,49 @@ namespace dgMicMute
             }
         }
 
+        private static bool IsStartupItem()
+        {
+            // The path to the key where Windows looks for startup applications
+            using (RegistryKey rkApp = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true))
+            {
+                if (rkApp.GetValue("dgMicMute") == null)
+                    // The value doesn't exist, the application is not set to run at startup
+                    return false;
+                else
+                    // The value exists, the application is set to run at startup
+                    return true;
+            }
+        }
+
         private static void ToggleAutostart()
         {
+            // The path to the key where Windows looks for startup applications
+            RegistryKey rkApp = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 
+            if (StartWithWindows)
+            {
+                try
+                {
+                    // Add the value in the registry so that the application runs at startup
+                    rkApp.SetValue("dgMicMute", System.Windows.Forms.Application.ExecutablePath.ToString());
+                }
+                catch
+                {
+
+                }
+            }
+            else
+            {
+                try
+                {
+                    // Remove the value from the registry so that the application doesn't start
+                    rkApp.DeleteValue("dgMicMute", false);
+                }
+                catch
+                {
+
+                }
+            }
         }
     }
 

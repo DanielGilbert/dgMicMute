@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:dgMicMute="clr-namespace:dgMicMute"
         MinWidth="300"
-        Title="SettingsWindow" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" >
+        Title="SettingsWindow" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Closed="Window_Closed" >
     <Window.DataContext>
         <dgMicMute:SettingsWindowViewModel x:Name="SettingsWindowViewModel" />
     </Window.DataContext>

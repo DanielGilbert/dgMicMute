@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using dgMicMute.MvvmHelper;
 using System.Windows.Input;
+using dgMicMute.Patterns;
 
 namespace dgMicMute
 {
@@ -119,7 +120,7 @@ namespace dgMicMute
 
         private void CloseSettings(object obj)
         {
-            SerializeStatic.Save(typeof(Settings));
+            Mediator.Instance.NotifyColleagues(MediatorMessages.CloseSettings, null);
         }
     }
 }
