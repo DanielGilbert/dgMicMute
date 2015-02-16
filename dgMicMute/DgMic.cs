@@ -39,6 +39,8 @@ namespace dgMicMute
         {
             if (_oldState == state) return;
 
+            _oldState = state;
+
             for (int i = 0; i < _count; i++)
             {
                 try

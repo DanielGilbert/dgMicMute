@@ -26,8 +26,8 @@ namespace dgMicMute
             set
             {
                 Settings.IsMuted = value;
-                IconPath = IsMuted ? @"res\microphone_muted.ico" : @"res\microphone_unmuted.ico";
-                _mic.SetMicStateTo(IsMuted ? DgMicStates.Muted : DgMicStates.Unmuted);
+                IconPath = Settings.IsMuted ? @"res\microphone_muted.ico" : @"res\microphone_unmuted.ico";
+                _mic.SetMicStateTo(Settings.IsMuted ? DgMicStates.Muted : DgMicStates.Unmuted);
                 SerializeStatic.Save(typeof(Settings));
                 OnPropertyChanged("IsMuted");
             }
