@@ -18,7 +18,7 @@ A hotkey might be a nice to have, but still needs implementation.
 Binaries
 --------
 
-If you came here by accident, and don't want the source, but rather precompiled binaries, head over to [the Download Page](http://tools.danielgilbert.de/windows/dgmicmute)
+If you came here by accident, and don't want the source, but rather precompiled binaries, head over to [the Releases](https://github.com/DanielGilbert/dgMicMute/releases). You might want to pick the topmost release.
 
 Thanks
 ------
