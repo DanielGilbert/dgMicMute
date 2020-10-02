@@ -10,15 +10,14 @@ namespace dgMicMute
 {
     public class SettingsWindowViewModel : ViewModelBase
     {
-        private List<string> _modifiersList = new List<string>{"None", "Ctrl", "Alt", "Shift"};
-        private List<string> _keysList = new List<string>();
+        private List<string> _modifiersList = new List<string>{"None", "Control", "Alt", "Shift"};
+        private List<string> _keysList = new List<string>(KeyMapper.AvailableKeys.Keys);
 
         private string _firstModifier;
         private string _secondModifier;
         private string _selectedKey;
 
         private bool _usesHotkeys;
-        private bool _startsWithWindows;
 
         public ICommand CloseSettingsCommand { get; set; }
 
@@ -116,11 +115,16 @@ namespace dgMicMute
         public SettingsWindowViewModel()
         {
             CloseSettingsCommand = new RelayCommand(CloseSettings);
+            _usesHotkeys = Settings.UsesHotkey;
+            _firstModifier = Settings.FirstModifier;
+            _secondModifier = Settings.SecondModifier;
+            _selectedKey = Settings.SelectedKey;
         }
 
         private void CloseSettings(object obj)
         {
             Mediator.Instance.NotifyColleagues(MediatorMessages.CloseSettings, null);
+            Settings.ConfigureHotkey(_usesHotkeys, _firstModifier, _secondModifier, _selectedKey);
         }
     }
 }

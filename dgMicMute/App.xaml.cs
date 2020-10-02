@@ -30,8 +30,20 @@ namespace dgMicMute
 
             //create the notifyicon (it's a resource declared in NotifyIconResources.xaml
             _notifyIcon = (TaskbarIcon)Application.Current.FindResource("NotifyIcon");
+            NotifyIconViewModel nivm = _notifyIcon.DataContext as NotifyIconViewModel;
 
             _bootstrapper = new Bootstrapper();
+            _bootstrapper.HotkeyPressed += nivm.HotkeyPressed;
+
+            _bootstrapper.RegistrationException += (s, ex) =>
+            {
+                _notifyIcon.ShowBalloonTip("Hotkey registration error", ((System.Exception)ex.ExceptionObject).Message, BalloonIcon.Error);
+                if (nivm.OpenSettingsWindowCommand.CanExecute(null))
+				{
+                    nivm.OpenSettingsWindowCommand.Execute(null);
+				}
+            };
+
             _bootstrapper.Init();
         }
 
