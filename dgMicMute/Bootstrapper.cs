@@ -19,7 +19,7 @@ namespace dgMicMute
             //Loads the settings
             SerializeStatic.Load(typeof(Settings));
             hook = new KeyboardHook();
-            hook.KeyPressed += (s, e) => HotkeyPressed?.Invoke(s, e);
+            hook.KeyPressed += (s, e) => { if (HotkeyPressed != null) { HotkeyPressed.Invoke(s, e); } };
             RegisterHotkey();
             Settings.OnSettingsChanged += Settings_OnSettingsChanged;
         }
@@ -57,14 +57,20 @@ namespace dgMicMute
                     }
                     else
                     {
-                        throw new ArgumentException($"Unknown key name '{Settings.SelectedKey}'");
+                        throw new ArgumentException("Unknown key name '" + Settings.SelectedKey + "'");
                     }
                 }
             }
             catch(Exception ex)
 			{
-                //MessageBox.Show(ex.Message + "\r\n\r\nPlease open 'Settings' and choose a different key combination", "Unable to register hotkey", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                RegistrationException?.Invoke(this, new UnhandledExceptionEventArgs(ex, false));
+                if (RegistrationException != null)
+                {
+                    RegistrationException.Invoke(this, new UnhandledExceptionEventArgs(ex, false));
+                }
+                else
+				{
+                    throw;
+				}
 			}
         }
 
