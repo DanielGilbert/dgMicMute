@@ -24,7 +24,8 @@
     <tb:TaskbarIcon x:Key="NotifyIcon"
                     IconSource="{Binding IconPath, Mode=TwoWay}"
                     ToolTipText="dgMicMute, © Daniel Gilbert (danielgilbert.de), 2014-2020"
-                    ContextMenu="{StaticResource SysTrayMenu}">
+                    ContextMenu="{StaticResource SysTrayMenu}"
+                    LeftClickCommand="{Binding ToggleMicrophoneCommand}">
         <!-- self-assign a data context (could also be done programmatically) -->
         <tb:TaskbarIcon.DataContext>
             <vm:NotifyIconViewModel />

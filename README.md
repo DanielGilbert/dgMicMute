@@ -10,7 +10,7 @@ It resides in the notification area as a mircofone symbol (keep in mind to make 
 It even has a *force-mode*, where it tries to prevent other applications from re-enabling the microphone (E.g. Skype does this. NSA might do it. :P).
 
 ## Features
-- Mutes your microphone with a click
+- Mutes your microphone with a single left-click (on the icon)
 - Adds a "force"-flag so that third party applications cannot "unmute" the microphone
 - Hotkey! (Thanks [@sco3tt](https://github.com/sco3tt)!)
 

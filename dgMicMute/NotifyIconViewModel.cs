@@ -63,6 +63,7 @@ namespace dgMicMute
         public ICommand ExitApplicationCommand { get; set; }
         public ICommand ForkOnGitHubCommand { get; set; }
         public ICommand OpenSettingsWindowCommand { get; set; }
+        public ICommand ToggleMicrophoneCommand { get; set; }
 
         public NotifyIconViewModel()
         {
@@ -72,11 +73,17 @@ namespace dgMicMute
             ExitApplicationCommand = new RelayCommand(ExitApplication);
             ForkOnGitHubCommand = new RelayCommand(ForkOnGithub);
             OpenSettingsWindowCommand = new RelayCommand(OpenSettingsWindow);
+            ToggleMicrophoneCommand = new RelayCommand(ToggleMicrophone);
         }
 
-		public void HotkeyPressed(object sender, KeyPressedEventArgs e)
+        private void ToggleMicrophone(object obj)
+        {
+            IsMuted = !IsMuted;
+        }
+
+        public void HotkeyPressed(object sender, KeyPressedEventArgs e)
 		{
-            _mic.Toggle();
+            ToggleMicrophone(null);
 		}
 
 		private void OpenSettingsWindow(object obj)
