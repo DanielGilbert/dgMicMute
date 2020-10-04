@@ -13,7 +13,7 @@ So I decided to write this little tool.
 It resides in the notification area as a mircofone symbol (keep in mind to make it visible, it's normally hidden). With a simple right-click, you can (un-)mute your microphone.
 It even has a *force-mode*, where it tries to prevent other applications from re-enabling the microphone (E.g. Skype does this. NSA might do it. :P).
 
-A hotkey might be a nice to have, but still needs implementation.
+~~A hotkey might be a nice to have, but still needs implementation.~~ _See notes below_
 
 Binaries
 --------
@@ -26,3 +26,6 @@ Thanks
 Icon made by Stephen Hutchings from Flaticon.com
 
 _this document hasn't been finished yet..._
+
+
+20201002 - sco3tt - Some preliminary support for hotkeys was present in DanielGilbert's code, so I completed it.  Go to Settings and check the "Toggle muted state" checkbox to define a hotkey.

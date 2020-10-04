@@ -25,6 +25,10 @@ namespace dgMicMute
         public static bool _startWithWindows;
         public static bool _isMuted;
         public static bool _isForced;
+        public static bool _usesHotkey;
+        public static string _firstModifier;
+        public static string _secondModifier;
+        public static string _selectedKey;
 
         public static event SettingsChanged OnSettingsChanged = delegate { };
 
@@ -65,6 +69,76 @@ namespace dgMicMute
                 _isForced = value;
             }
         }
+
+        public static string FirstModifier
+        {
+            get
+            {
+                return _firstModifier;
+            }
+            set
+            {
+               _firstModifier = value;
+            }
+        }
+
+        public static string SecondModifier
+        {
+            get
+            {
+                return _secondModifier;
+            }
+            set
+            {
+                _secondModifier = value;
+            }
+        }
+
+        public static string SelectedKey
+        {
+            get
+            {
+                return _selectedKey;
+            }
+            set
+            {
+                _selectedKey = value;
+            }
+        }
+
+        public static bool UsesHotkey
+        {
+            get
+            {
+                return _usesHotkey;
+            }
+            set
+            {
+                _usesHotkey = value;
+            }
+        }
+
+        /// <summary>
+        /// Configures all the hotkey settings in an atomic operation.  This will be called by SettingsWindowViewModel.CloseSettings() so that
+        /// we can reassert the hotkey after all of the discrete options have been finalized, rather than deregistering/registering the hotkey
+        /// each time any particular setting is altered.
+        /// </summary>
+        /// <param name="usesHotkey"></param>
+        /// <param name="firstModifier"></param>
+        /// <param name="secondModifier"></param>
+        /// <param name="selectedKey"></param>
+        public static void ConfigureHotkey(bool usesHotkey, string firstModifier, string secondModifier, string selectedKey)
+        {
+            if (usesHotkey != _usesHotkey || firstModifier != _firstModifier || secondModifier != _secondModifier || selectedKey != _selectedKey)
+            {
+                _usesHotkey = usesHotkey;
+                _firstModifier = firstModifier;
+                _secondModifier = secondModifier;
+                _selectedKey = selectedKey;
+                OnSettingsChanged("ConfigureHotkey");
+            }
+        }
+
 
         private static bool IsStartupItem()
         {

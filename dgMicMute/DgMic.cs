@@ -4,7 +4,7 @@ using dgMicMute.Implementations;
 
 namespace dgMicMute
 {
-    public delegate void VolumeNotificationEvent(AudioVolumeNotificationData data); 
+    public delegate void VolumeNotificationEvent(AudioVolumeNotificationData data);
 
     /// <summary>
     /// Starting point: http://msdn.microsoft.com/en-us/library/dd370805(v=vs.85).aspx
@@ -55,11 +55,16 @@ namespace dgMicMute
             }
         }
 
+        public void Toggle()
+        {
+            SetMicStateTo(_oldState == DgMicStates.Muted ? DgMicStates.Unmuted : DgMicStates.Muted);
+        }
+
         public bool AreAllMicsMuted()
         {
-            return !((from p 
-                      in _devices 
-                      where p.AudioEndpointVolume.Mute == false 
+            return !((from p
+                      in _devices
+                      where p.AudioEndpointVolume.Mute == false
                       select p).Any());
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -7,13 +8,13 @@ using System.Windows.Forms;
 
 namespace dgMicMute
 {
-public sealed class KeyboardHook : IDisposable
-{
+    public sealed class KeyboardHook : IDisposable
+    {
         // Registers a hot key with Windows.
-        [DllImport("user32.dll")]
+        [DllImport("user32.dll", SetLastError = true)]
         private static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
         // Unregisters the hot key with Windows.
-        [DllImport("user32.dll")]
+        [DllImport("user32.dll", SetLastError = true)]
         private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
         /// <summary>
@@ -87,7 +88,13 @@ public sealed class KeyboardHook : IDisposable
 
             // register the hot key.
             if (!RegisterHotKey(_window.Handle, _currentId, (uint)modifier, (uint)key))
-                throw new InvalidOperationException("Couldn’t register the hot key.");
+            {
+                _currentId--;
+                //Settings.UsesHotkey = false; // Turn this off so we don't try to register it again until the user reconfigures the settings
+                int errorCode = Marshal.GetLastWin32Error();
+                //throw new InvalidOperationException($"Couldn’t register the hot key.  Error code: {errorCode}", new Win32Exception(errorCode));
+                throw new Win32Exception(errorCode);
+            }
         }
 
         /// <summary>
@@ -99,14 +106,20 @@ public sealed class KeyboardHook : IDisposable
 
         public void Dispose()
         {
+            UnregisterHotkeys();
+
+            // dispose the inner native window.
+            _window.Dispose();
+        }
+
+        public void UnregisterHotkeys()
+        {
             // unregister all the registered hot keys.
             for (int i = _currentId; i > 0; i--)
             {
                 UnregisterHotKey(_window.Handle, i);
             }
-
-            // dispose the inner native window.
-            _window.Dispose();
+            _currentId = 0;
         }
 
         #endregion

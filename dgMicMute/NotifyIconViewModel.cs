@@ -74,7 +74,12 @@ namespace dgMicMute
             OpenSettingsWindowCommand = new RelayCommand(OpenSettingsWindow);
         }
 
-        private void OpenSettingsWindow(object obj)
+		public void HotkeyPressed(object sender, KeyPressedEventArgs e)
+		{
+            _mic.Toggle();
+		}
+
+		private void OpenSettingsWindow(object obj)
         {
             SettingsWindow settingsWindow = new SettingsWindow();
             settingsWindow.Show();
