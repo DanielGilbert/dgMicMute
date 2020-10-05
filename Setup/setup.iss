@@ -2,9 +2,9 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "dgMicMute"
-#define MyAppVersion "1.1"
+#define MyAppVersion "1.2.0"
 #define MyAppPublisher "Daniel Gilbert"
-#define MyAppURL "http://tools.danielgilbert.de/windows/dgmicmute"
+#define MyAppURL "https://github.com/DanielGilbert/dgMicMute"
 #define MyAppExeName "dgMicMute.exe"
 
 [Setup]
@@ -19,12 +19,12 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName={pf}\{#MyAppName}
+DefaultDirName={commonpf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
-LicenseFile=L:\Entwicklung\Windows\dgMicMute\dgMicMute\bin\Release\License.txt
-OutputDir=L:\Entwicklung\Windows\dgMicMute\Setup
-OutputBaseFilename=dgMicMute_Setup
+LicenseFile=..\dgMicMute\bin\Release\License.md
+OutputDir=..\dgMicMute\Setup
+OutputBaseFilename=dgMicMuteSetup
 Compression=lzma
 SolidCompression=yes
 
@@ -36,8 +36,9 @@ Name: "german"; MessagesFile: "compiler:Languages\German.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "L:\Entwicklung\Windows\dgMicMute\dgMicMute\bin\Release\dgMicMute.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "L:\Entwicklung\Windows\dgMicMute\dgMicMute\bin\Release\Hardcodet.Wpf.TaskbarNotification.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\dgMicMute\bin\Release\dgMicMute.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\dgMicMute\bin\Release\*.md"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\dgMicMute\bin\Release\*.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
