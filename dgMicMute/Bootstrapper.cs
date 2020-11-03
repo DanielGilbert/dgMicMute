@@ -9,17 +9,14 @@ namespace dgMicMute
 {
     public class Bootstrapper
     {
-        public event EventHandler<KeyPressedEventArgs> HotkeyPressed;
         public event EventHandler<UnhandledExceptionEventArgs> RegistrationException;
 
-        KeyboardHook hook;
+        public KeyboardHook Hook = new KeyboardHook();
 
-        public void Init()
+		public void Init()
         {
             //Loads the settings
             SerializeStatic.Load(typeof(Settings));
-            hook = new KeyboardHook();
-            hook.KeyPressed += (s, e) => { if (HotkeyPressed != null) { HotkeyPressed.Invoke(s, e); } };
             RegisterHotkey();
             Settings.OnSettingsChanged += Settings_OnSettingsChanged;
         }
@@ -40,7 +37,7 @@ namespace dgMicMute
         {
             try
             {
-                hook.UnregisterHotkeys(); // unregister any hotkeys that might already have been registered
+                Hook.UnregisterHotkeys(); // unregister any hotkeys that might already have been registered
 
                 // Make sure "UsesHotKey" is true and we have, at minimum, a SelectedKey defined
                 if (Settings.UsesHotkey && !String.IsNullOrWhiteSpace(Settings.SelectedKey))
@@ -53,7 +50,7 @@ namespace dgMicMute
                     Keys selectedKey = Keys.None;
                     if (KeyMapper.AvailableKeys.TryGetValue(Settings.SelectedKey, out selectedKey))
                     {
-                        hook.RegisterHotKey(modifierKeys, selectedKey);
+                        Hook.RegisterHotKey(modifierKeys, selectedKey);
                     }
                     else
                     {
@@ -76,7 +73,7 @@ namespace dgMicMute
 
         public void Shutdown()
         {
-            hook.UnregisterHotkeys();
+            Hook.UnregisterHotkeys();
             SerializeStatic.Save(typeof(Settings));
         }
     }

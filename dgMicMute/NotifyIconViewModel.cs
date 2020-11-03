@@ -76,9 +76,17 @@ namespace dgMicMute
             ToggleMicrophoneCommand = new RelayCommand(ToggleMicrophone);
         }
 
+        public void RefreshMicList(object sender, EventArgs e)
+		{
+            _mic.Dispose();
+            _mic = new DgMic();
+            _mic.OnVolumeNotification += _mic_OnVolumeNotification;
+            IsMuted = Settings.IsMuted; // reassert the muted state on the new set of mics
+		}
+
         private void ToggleMicrophone(object obj)
         {
-            IsMuted = !IsMuted;
+            IsMuted = !Settings.IsMuted; // changed this to Settings.IsMuted instead of this.IsMuted to skip the unneeded side effect calls of that getter
         }
 
         public void HotkeyPressed(object sender, KeyPressedEventArgs e)
