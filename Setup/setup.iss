@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "dgMicMute"
-#define MyAppVersion "1.2.0"
+#define MyAppVersion "1.2.1"
 #define MyAppPublisher "Daniel Gilbert"
 #define MyAppURL "https://github.com/DanielGilbert/dgMicMute"
 #define MyAppExeName "dgMicMute.exe"

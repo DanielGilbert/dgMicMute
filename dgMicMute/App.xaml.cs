@@ -33,7 +33,8 @@ namespace dgMicMute
             NotifyIconViewModel nivm = _notifyIcon.DataContext as NotifyIconViewModel;
 
             _bootstrapper = new Bootstrapper();
-            _bootstrapper.HotkeyPressed += nivm.HotkeyPressed;
+            _bootstrapper.Hook.KeyPressed += nivm.HotkeyPressed;
+            _bootstrapper.Hook.DevicesChanged += nivm.RefreshMicList;
 
             _bootstrapper.RegistrationException += (s, ex) =>
             {

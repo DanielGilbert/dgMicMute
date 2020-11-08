@@ -8,6 +8,10 @@ using System.Windows.Forms;
 
 namespace dgMicMute
 {
+    /// <summary>
+    /// Creates a window to receive and dispatch WM_HOTKEY messages.
+    /// Also now does the same for WM_DEVICECHANGE messages to detect when mics are added/removed, so it might make sense to rename the class.
+    /// </summary>
     public sealed class KeyboardHook : IDisposable
     {
         // Registers a hot key with Windows.
@@ -23,6 +27,7 @@ namespace dgMicMute
         private class Window : NativeWindow, IDisposable
         {
             private static int WM_HOTKEY = 0x0312;
+            private static int WM_DEVICECHANGE = 0x0219;
 
             public Window()
             {
@@ -49,9 +54,17 @@ namespace dgMicMute
                     if (KeyPressed != null)
                         KeyPressed(this, new KeyPressedEventArgs(modifier, key));
                 }
+                else if (m.Msg == WM_DEVICECHANGE)
+				{
+                    if (DevicesChanged != null)
+					{
+                        DevicesChanged(this, null);
+					}
+				}
             }
 
             public event EventHandler<KeyPressedEventArgs> KeyPressed;
+            public event EventHandler DevicesChanged;
 
             #region IDisposable Members
 
@@ -73,6 +86,11 @@ namespace dgMicMute
             {
                 if (KeyPressed != null)
                     KeyPressed(this, args);
+            };
+            _window.DevicesChanged += delegate (object sender, EventArgs args)
+            {
+                if (DevicesChanged != null)
+                    DevicesChanged(this, args);
             };
         }
 
@@ -101,6 +119,7 @@ namespace dgMicMute
         /// A hot key has been pressed.
         /// </summary>
         public event EventHandler<KeyPressedEventArgs> KeyPressed;
+        public event EventHandler DevicesChanged;
 
         #region IDisposable Members
 
