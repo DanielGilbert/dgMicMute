@@ -111,6 +111,19 @@ namespace dgMicMute
                 OnPropertyChanged("UsesHotkeys");
             }
         }
+        
+        public bool PlaysSound
+        {
+            get
+            {
+                return Settings.PlaysSound;
+            }
+            set
+            {
+                Settings.PlaysSound = value;
+                OnPropertyChanged("PlaysSound");
+            }
+        }
 
         public SettingsWindowViewModel()
         {
