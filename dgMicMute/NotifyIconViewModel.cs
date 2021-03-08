@@ -15,27 +15,25 @@ namespace dgMicMute
     {
         private string _iconPath;
         private DgMic _mic;
+        private readonly System.Media.SoundPlayer _offSoundPlayer = new System.Media.SoundPlayer(Resources.off);
+        private readonly System.Media.SoundPlayer _onSoundPlayer = new System.Media.SoundPlayer(Resources.on);
 
         public bool IsMuted
         {
             get
             {
                 IconPath = Settings.IsMuted ? @"res\microphone_muted.ico" : @"res\microphone_unmuted.ico";
-                if (Settings.PlaysSound)
-                {
-                    PlaySound(Settings.IsMuted);
-                }
                 _mic.SetMicStateTo(Settings.IsMuted ? DgMicStates.Muted : DgMicStates.Unmuted);
                 return Settings.IsMuted;
             }
             set
             {
+                if (Settings.PlaysSound && Settings.IsMuted != value)
+                {
+                    PlaySound(value);
+                }
                 Settings.IsMuted = value;
                 IconPath = Settings.IsMuted ? @"res\microphone_muted.ico" : @"res\microphone_unmuted.ico";
-                if (Settings.PlaysSound)
-                {
-                    PlaySound(Settings.IsMuted);
-                }
                 _mic.SetMicStateTo(Settings.IsMuted ? DgMicStates.Muted : DgMicStates.Unmuted);
                 SerializeStatic.Save(typeof(Settings));
                 OnPropertyChanged("IsMuted");
@@ -114,10 +112,10 @@ namespace dgMicMute
             Process.Start("https://github.com/DanielGilbert/dgMicMute");
         }
 
-        private void PlaySound(bool value)
+        private void PlaySound(bool isMuted)
         {
-            var sound = Settings.IsMuted ? Resources.off : Resources.on;
-            new System.Media.SoundPlayer(sound).Play();
+            var sound = isMuted ? _offSoundPlayer : _onSoundPlayer;
+            sound.Play();
         }
 
         private void _mic_OnVolumeNotification(Implementations.AudioVolumeNotificationData data)
