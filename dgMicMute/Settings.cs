@@ -26,6 +26,7 @@ namespace dgMicMute
         public static bool _isMuted;
         public static bool _isForced;
         public static bool _usesHotkey;
+        public static bool _playsSound;
         public static string _firstModifier;
         public static string _secondModifier;
         public static string _selectedKey;
@@ -67,6 +68,18 @@ namespace dgMicMute
             set
             {
                 _isForced = value;
+            }
+        }
+        
+        public static bool PlaysSound
+        {
+            get
+            {
+                return _playsSound;
+            }
+            set
+            {
+                _playsSound = value;
             }
         }
 
