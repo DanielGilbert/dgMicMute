@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using dgMicMute.MvvmHelper;
+using dgMicMute.Properties;
 
 namespace dgMicMute
 {
@@ -14,6 +15,8 @@ namespace dgMicMute
     {
         private string _iconPath;
         private DgMic _mic;
+        private readonly System.Media.SoundPlayer _offSoundPlayer = new System.Media.SoundPlayer(Resources.off);
+        private readonly System.Media.SoundPlayer _onSoundPlayer = new System.Media.SoundPlayer(Resources.on);
 
         public bool IsMuted
         {
@@ -25,6 +28,10 @@ namespace dgMicMute
             }
             set
             {
+                if (Settings.PlaysSound && Settings.IsMuted != value)
+                {
+                    PlaySound(value);
+                }
                 Settings.IsMuted = value;
                 IconPath = Settings.IsMuted ? @"res\microphone_muted.ico" : @"res\microphone_unmuted.ico";
                 _mic.SetMicStateTo(Settings.IsMuted ? DgMicStates.Muted : DgMicStates.Unmuted);
@@ -103,6 +110,12 @@ namespace dgMicMute
         private void ForkOnGithub(object obj)
         {
             Process.Start("https://github.com/DanielGilbert/dgMicMute");
+        }
+
+        private void PlaySound(bool isMuted)
+        {
+            var sound = isMuted ? _offSoundPlayer : _onSoundPlayer;
+            sound.Play();
         }
 
         private void _mic_OnVolumeNotification(Implementations.AudioVolumeNotificationData data)

@@ -13,6 +13,7 @@ It even has a *force-mode*, where it tries to prevent other applications from re
 - Mutes your microphone with a single left-click (on the icon)
 - Adds a "force"-flag so that third party applications cannot "unmute" the microphone
 - Hotkey! (Thanks [@sco3tt](https://github.com/sco3tt)!)
+- Audible notification when switching the state! (Thanks [@AngryJKirk](https://github.com/AngryJKirk)!)
 
 ## Binaries
 If you came here by accident, and don't want the source, but rather precompiled binaries, head over to [the Releases](https://github.com/DanielGilbert/dgMicMute/releases). You might want to pick the topmost release.
